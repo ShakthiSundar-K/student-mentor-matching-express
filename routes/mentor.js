@@ -40,6 +40,12 @@ router.post("/:mentorId/assign-students", async (req, res) => {
       return res.status(404).json({ message: "Mentor not found" });
     }
 
+    // Validate that studentIds is an array
+    if (!Array.isArray(studentIds)) {
+      return res.status(400).json({ message: "studentIds must be an array" });
+    }
+
+    // Proceed with assigning students
     for (const studentId of studentIds) {
       const student = await Student.findById(studentId);
       if (student && !student.mentor) {
@@ -48,6 +54,7 @@ router.post("/:mentorId/assign-students", async (req, res) => {
         mentor.students.push(student._id);
       }
     }
+
     await mentor.save();
     res.json({ message: "Students assigned successfully", mentor });
   } catch (error) {

@@ -25,16 +25,28 @@ router.post("/:studentId/assign-mentor/:mentorId", async (req, res) => {
       return res.status(404).json({ message: "Student or Mentor not found" });
     }
 
-    // Update previous mentors list
-    if (student.mentor && !student.previousMentors.includes(student.mentor)) {
-      student.previousMentors.push(student.mentor);
+    // If the student already has a mentor, remove them from the current mentor's students list
+    if (student.mentor) {
+      const currentMentor = await Mentor.findById(student.mentor);
+      if (currentMentor) {
+        // Remove student from the current mentor's list
+        currentMentor.students = currentMentor.students.filter(
+          (studentId) => !studentId.equals(student._id)
+        );
+        await currentMentor.save();
+      }
+
+      // Add the current mentor to the previousMentors list if not already present
+      if (!student.previousMentors.includes(student.mentor)) {
+        student.previousMentors.push(student.mentor);
+      }
     }
 
     // Update the mentor relationship
     student.mentor = newMentor._id;
     await student.save();
 
-    // Add student to new mentor's list
+    // Add student to the new mentor's students list
     newMentor.students.push(student._id);
     await newMentor.save();
 
