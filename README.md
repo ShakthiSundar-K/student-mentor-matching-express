@@ -13,6 +13,7 @@ This project is a Node.js and MongoDB-based API that allows creating mentors and
 - [Project Structure](#project-structure)
 - [Setup and Installation](#setup-and-installation)
 - [API Endpoints](#api-endpoints)
+- [Postman Documentation](#postman-documentation)
 
 ## Technologies Used
 - **Node.js**: JavaScript runtime environment
@@ -139,6 +140,10 @@ This project is a Node.js and MongoDB-based API that allows creating mentors and
    - Set up a new web service for the Node.js app.
    - Set environment variables (`MONGO_URI`, `PORT`) on Render.
 
+## Postman Documentation
+
+[https://web.postman.co/workspace/My-Workspace~e54c06e6-3bec-49fb-82b4-1ad99c50d424/documentation/37037972-7fb98249-40d2-46f3-bdb4-a35e85049bf6
+](https://documenter.getpostman.com/view/37037972/2sAY52ceb4)
 ## Conclusion
 
 This project provides APIs to manage mentor-student relationships, allowing for flexible assignment and reassignment of mentors. It uses Express and MongoDB for backend functionality and Mongoose as an ORM.
